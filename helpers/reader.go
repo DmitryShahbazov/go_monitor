@@ -25,7 +25,7 @@ func ReadFile(filename string, wg *sync.WaitGroup, results chan<- scrapers.LiveC
 			continue
 		}
 		url, nickname := parts[0], parts[1]
-		time.Sleep(200 * time.Millisecond)
+		time.Sleep(100 * time.Millisecond)
 
 		wg.Add(1)
 		go func(url, nickname string) {
