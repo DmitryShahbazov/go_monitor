@@ -19,8 +19,21 @@ func CheckIsLive(channel, nickname string, results chan<- LiveCheckResult) {
 		connection_url = "https://www.youtube.com/channel/"
 	}
 	url := connection_url + channel + "/live"
-	time.Sleep(10 * time.Millisecond)
-	resp, err := http.Get(url)
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Println("Ошибка при создании запроса:", err)
+		return
+	}
+
+	req.Header.Add("pgrade-insecure-requests", "1")                                                                                                                     // Пример добавления заголовка Accept
+	req.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")                     // Пример добавления заголовка User-Agent
+	req.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7") // Пример добавления заголовка User-Agent
+	req.Header.Add("Accept-Language", "en-US,en;q=0.5")
+
+	time.Sleep(50 * time.Millisecond)
+	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println(err)
 		return
