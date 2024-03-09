@@ -28,14 +28,16 @@ func SendMessage(bot *tgbotapi.BotAPI, chatID int64, message string) {
 		editMsg.ParseMode = "HTML"
 		editMsg.DisableWebPagePreview = true
 		_, err := bot.Send(editMsg)
-		if err.Error() == "Bad Request: MESSAGE_ID_INVALID" {
-			msg := tgbotapi.NewMessage(chatID, message)
-			msg.ParseMode = "HTML"
-			msg.DisableWebPagePreview = true
+		if err != nil {
+			if err.Error() == "Bad Request: MESSAGE_ID_INVALID" {
+				msg := tgbotapi.NewMessage(chatID, message)
+				msg.ParseMode = "HTML"
+				msg.DisableWebPagePreview = true
 
-			sentMsg, _ := bot.Send(msg)
-			lastMessageTime = currentTime
-			lastMessageID = int64(sentMsg.MessageID)
+				sentMsg, _ := bot.Send(msg)
+				lastMessageTime = currentTime
+				lastMessageID = int64(sentMsg.MessageID)
+			}
 		}
 
 	} else {

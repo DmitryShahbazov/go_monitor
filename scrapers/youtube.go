@@ -57,7 +57,7 @@ func CheckIsLive(channel, nickname string, results chan<- LiveCheckResult) {
 		a, _ := strconv.ParseInt(matches[1], 10, 32)
 		URL := "https://youtu.be/" + video_id_matches[1]
 		results <- LiveCheckResult{int32(a), nickname, nil, URL}
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(1 * time.Second)
 	}
 
 }
