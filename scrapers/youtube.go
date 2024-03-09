@@ -32,7 +32,6 @@ func CheckIsLive(channel, nickname string, results chan<- LiveCheckResult) {
 	req.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7") // Пример добавления заголовка User-Agent
 	req.Header.Add("Accept-Language", "en-US,en;q=0.5")
 
-	time.Sleep(50 * time.Millisecond)
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println(err)
@@ -58,6 +57,7 @@ func CheckIsLive(channel, nickname string, results chan<- LiveCheckResult) {
 		a, _ := strconv.ParseInt(matches[1], 10, 32)
 		URL := "https://youtu.be/" + video_id_matches[1]
 		results <- LiveCheckResult{int32(a), nickname, nil, URL}
+		time.Sleep(500 * time.Millisecond)
 	}
 
 }
