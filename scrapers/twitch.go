@@ -2,7 +2,7 @@ package scrapers
 
 import (
 	"github.com/nicklaw5/helix"
-	settings "youtube_monitor"
+	"youtube_monitor/settings"
 )
 
 func getClientApi() *helix.Client {

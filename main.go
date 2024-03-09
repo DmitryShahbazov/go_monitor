@@ -1,4 +1,4 @@
-package settings
+package main
 
 import (
 	"fmt"
@@ -9,6 +9,7 @@ import (
 	"youtube_monitor/bot"
 	"youtube_monitor/helpers"
 	"youtube_monitor/scrapers"
+	"youtube_monitor/settings"
 )
 
 func main() {
@@ -84,12 +85,12 @@ func main() {
 		}
 
 		if len(resultsSliceYT) > 0 || len(resultsSliceTW) > 0 || len(resultsSliceKC) > 0 {
-			tgBot := bot.InitializeBot(BotTGToken)
-			bot.SendMessage(&tgBot, ChannelID, sb.String())
+			tgBot := bot.InitializeBot(settings.BotTGToken)
+			bot.SendMessage(&tgBot, settings.ChannelID, sb.String())
 			sb.Reset()
 		}
 
-		time.Sleep(SendTimeout * time.Minute)
+		time.Sleep(settings.SendTimeout * time.Minute)
 	}
 
 }
